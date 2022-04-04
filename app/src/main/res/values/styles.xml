@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MyTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="actionBarTheme">@style/MyTheme.MyActionBarTheme</item>
+    </style>
+
+    <style name="MyTheme.MyActionBarTheme" parent="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        <item name="android:textColorPrimary">@color/light_green</item>
+    </style>
+</resources>
