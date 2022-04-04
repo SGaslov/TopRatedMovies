@@ -39,9 +39,9 @@ class MovieAdapter (private val movieList: MutableList<Movie>) :
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.apply {
             titleTextView.text = movieList[position].title
-            genresTextView.text = movieList[position].genres
-            popularityTextView.text = movieList[position].popularity
-            ratingTextView.text = movieList[position].rating
+            genresTextView.text = movieList[position].genres[0]
+            popularityTextView.text = movieList[position].popularity.toString()
+            ratingTextView.text = movieList[position].rating.toString()
         }
 
         viewHolder.itemView.setOnClickListener {

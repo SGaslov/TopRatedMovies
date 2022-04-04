@@ -10,14 +10,14 @@ import retrofit2.http.Query
 interface MovieApiService {
 
     @GET("movie/top_rated")
-    fun getMovieDetail(
+    fun getTopRatedMovies(
         @Query(QUERY_PARAM_API_KEY) apiKey: String = HIDDEN_API_KEY,
         @Query(QUERY_PARAM_LANGUAGE) language: String = LANGUAGE,
         @Query(QUERY_PARAM_PAGE) page: Int = 1
     ): MovieListContainerDto
 
     @GET("/movie/{movie_id}")
-    fun getTopRatedMovies(
+    fun getMovieDetail(
         @Path("movie_id") movieId: String,
         @Query(QUERY_PARAM_API_KEY) apiKey: String = HIDDEN_API_KEY,
         @Query(QUERY_PARAM_LANGUAGE) language: String = LANGUAGE

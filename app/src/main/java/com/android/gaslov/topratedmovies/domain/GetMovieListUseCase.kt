@@ -1,8 +1,10 @@
 package com.android.gaslov.topratedmovies.domain
 
-class GetMovieListUseCase(private val repository: MovieRepository) {
+import com.android.gaslov.topratedmovies.data.MovieRepositoryImpl
 
-    fun getMovieListUseCase(): MutableList<Movie> {
-        return repository.getMovieList()
-    }
+class GetMovieListUseCase() {
+
+    private val repository: MovieRepository = MovieRepositoryImpl()
+
+    operator fun invoke() = repository.getMovieList()
 }

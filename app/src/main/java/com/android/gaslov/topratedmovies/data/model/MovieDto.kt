@@ -1,6 +1,5 @@
 package com.android.gaslov.topratedmovies.data.model
 
-import com.android.gaslov.topratedmovies.data.model.GenreDto
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 

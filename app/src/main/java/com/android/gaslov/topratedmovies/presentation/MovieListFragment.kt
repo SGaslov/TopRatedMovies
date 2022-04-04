@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -40,8 +39,8 @@ class MovieListFragment : Fragment() {
 
                 val fragment = MovieDetailFragment.newInstance(
                     movieList[0].title,
-                    movieList[0].genres,
-                    movieList[0].rating,
+                    movieList[0].genres[0],
+                    movieList[0].rating.toString(),
                     movieList[0].overview
                 )
 
@@ -67,15 +66,17 @@ class MovieListFragment : Fragment() {
                 add(
                     Movie(
                         i,
-                        "Finding Nemo Finding Nemo Finding Nemo Finding Nemo",
-                        "Genres: Animation, Family",
-                        "Popularity: 5500",
-                        "Rating: 7.8",
+                        listOf("Animation", "Family"),
                         "Overview: Nemo, an adventurous young clownfish, is unexpectedly taken" +
                                 " from his Great Barrier Reef home to a dentist's office aquarium. It's" +
                                 " up to his worrisome father Marlin and a friendly but forgetful fish" +
                                 " Dory to bring Nemo home -- meeting vegetarian sharks, surfer dude" +
-                                " turtles, hypnotic jellyfish, hungry seagulls, and more along the way."
+                                " turtles, hypnotic jellyfish, hungry seagulls, and more along the way.",
+                        5500.0,
+                        "",
+                        listOf("USA"),
+                        "Finding Nemo Finding Nemo Finding Nemo Finding Nemo",
+                        7.8
                     )
                 )
             }

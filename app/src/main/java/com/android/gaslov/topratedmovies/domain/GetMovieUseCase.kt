@@ -1,8 +1,10 @@
 package com.android.gaslov.topratedmovies.domain
 
-class GetMovieUseCase(private val repository: MovieRepository) {
+import com.android.gaslov.topratedmovies.data.MovieRepositoryImpl
 
-    fun getMovieUseCase(movieId: Int): Movie {
-        return repository.getMovie(movieId)
-    }
+class GetMovieUseCase() {
+
+    private val repository: MovieRepository = MovieRepositoryImpl()
+
+    operator fun invoke(movieId: Int) = repository.getMovie(movieId)
 }
