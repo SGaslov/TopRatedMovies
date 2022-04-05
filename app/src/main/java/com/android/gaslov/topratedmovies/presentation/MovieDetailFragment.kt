@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import com.android.gaslov.topratedmovies.R
 
 private const val ARG_TITLE = "title"
@@ -40,6 +41,8 @@ class MovieDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setNavBackButtonOnClickListener(view)
+
         val titleTextView: TextView = view.findViewById(R.id.detailTitleTextView)
         val genresTextView: TextView = view.findViewById(R.id.detailGenresTextView)
         val ratingTextView: TextView = view.findViewById(R.id.detailRatingTextView)
@@ -49,6 +52,13 @@ class MovieDetailFragment : Fragment() {
         genresTextView.text = genres
         ratingTextView.text = rating
         overviewTextView.text = overview
+    }
+
+    private fun setNavBackButtonOnClickListener(view: View) {
+        view.findViewById<Toolbar>(R.id.detailFragmentToolbar)
+            .setNavigationOnClickListener {
+            requireActivity().supportFragmentManager?.popBackStack()
+        }
     }
 
     companion object {

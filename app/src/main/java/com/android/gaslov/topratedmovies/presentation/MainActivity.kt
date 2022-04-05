@@ -1,7 +1,7 @@
 package com.android.gaslov.topratedmovies.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import com.android.gaslov.topratedmovies.R
 
