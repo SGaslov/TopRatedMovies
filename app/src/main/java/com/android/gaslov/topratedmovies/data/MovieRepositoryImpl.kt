@@ -25,7 +25,7 @@ class MovieRepositoryImpl : MovieRepository {
         val movieListContainerDto = apiService.getTopRatedMovies()
         val movieListDto = movieListContainerDto.movieList
 
-        val movieList = movieListDto.map { mapper.movieDtoToMovie(it) }
+        val movieList = movieListDto?.map { mapper.movieDtoToMovie(it) } ?: listOf()
 
             return MutableLiveData<List<Movie>>().apply {
                 value = movieList

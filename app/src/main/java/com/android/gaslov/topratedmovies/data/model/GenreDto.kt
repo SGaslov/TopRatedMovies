@@ -6,5 +6,5 @@ import com.google.gson.annotations.SerializedName
 data class GenreDto(
     @SerializedName("name")
     @Expose
-    val genre: String
+    val genre: String?
 )

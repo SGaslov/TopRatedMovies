@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" -->
-
     <style name="Toolbar" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
         <item name="android:textColorPrimary">@color/light_green</item>
         <item name="android:background">@color/dark_blue</item>

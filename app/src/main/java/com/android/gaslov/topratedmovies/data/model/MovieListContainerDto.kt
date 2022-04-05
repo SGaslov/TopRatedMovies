@@ -6,8 +6,8 @@ import com.google.gson.annotations.SerializedName
 data class MovieListContainerDto(
     @SerializedName("page")
     @Expose
-    val page: Int,
+    val page: Int?,
     @SerializedName("result")
     @Expose
-    val movieList: List<MovieDto>
+    val movieList: List<MovieDto>?
 )

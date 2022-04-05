@@ -6,26 +6,26 @@ import com.google.gson.annotations.SerializedName
 data class MovieDetailDto(
     @SerializedName("budget")
     @Expose
-    val budget: Int,
+    val budget: Int?,
     @SerializedName("genres")
     @Expose
-    val genres: List<GenreDto>,
+    val genres: List<GenreDto>?,
     @SerializedName("overview")
     @Expose
-    val overview: String,
+    val overview: String?,
     @SerializedName("popularity")
     @Expose
-    val popularity: Double,
+    val popularity: Double?,
     @SerializedName("poster_path")
     @Expose
-    val posterPath: String,
+    val posterPath: String?,
     @SerializedName("production_countries")
     @Expose
-    val productionCountries: List<ProductionCountryDto>,
+    val productionCountries: List<ProductionCountryDto>?,
     @SerializedName("title")
     @Expose
-    val title: String,
+    val title: String?,
     @SerializedName("vote_average")
     @Expose
-    val rating: Double
+    val rating: Double?
 )

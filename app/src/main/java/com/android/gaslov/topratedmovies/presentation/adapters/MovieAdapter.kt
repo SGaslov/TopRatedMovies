@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.gaslov.topratedmovies.R
 import com.android.gaslov.topratedmovies.domain.Movie
 
-class MovieAdapter (private val movieList: MutableList<Movie>) :
+class MovieAdapter (private val movieList: List<Movie>) :
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
     var onClickListener: (() -> Unit)? = null
@@ -39,9 +39,9 @@ class MovieAdapter (private val movieList: MutableList<Movie>) :
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.apply {
             titleTextView.text = movieList[position].title
-            genresTextView.text = movieList[position].genres[0]
-            popularityTextView.text = movieList[position].popularity.toString()
-            ratingTextView.text = movieList[position].rating.toString()
+            genresTextView.text = movieList[position].genres
+            popularityTextView.text = movieList[position].popularity
+            ratingTextView.text = movieList[position].rating
         }
 
         viewHolder.itemView.setOnClickListener {

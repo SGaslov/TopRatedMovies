@@ -6,5 +6,5 @@ import com.google.gson.annotations.SerializedName
 data class ProductionCountryDto(
     @SerializedName("name")
     @Expose
-    val countryName: String
+    val countryName: String?
 )

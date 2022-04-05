@@ -1,11 +1,10 @@
 package com.android.gaslov.topratedmovies.presentation
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import com.android.gaslov.topratedmovies.domain.GetMovieListUseCase
 import com.android.gaslov.topratedmovies.domain.GetMovieUseCase
 
-class MovieViewModel(application: Application) : AndroidViewModel(application) {
+class MovieViewModel : ViewModel() {
 
     private val getMovieListUseCase = GetMovieListUseCase()
     private val getMovieUseCase = GetMovieUseCase()
