@@ -1,7 +1,6 @@
 package com.android.gaslov.topratedmovies.presentation
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +8,9 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.gaslov.topratedmovies.R
-import com.android.gaslov.topratedmovies.domain.Movie
 import com.android.gaslov.topratedmovies.presentation.adapters.MovieAdapter
 
 class MovieListFragment : Fragment() {
@@ -42,17 +39,12 @@ class MovieListFragment : Fragment() {
 
         recyclerView = view.findViewById(R.id.movieListRecyclerView)
 
-        viewModel.movieList.observe(viewLifecycleOwner) {
-            adapter = MovieAdapter(it)
-            adapter.onClickListener = {
-                val fragment = MovieDetailFragment.newInstance(
-                    "Title",
-                    "Comedy",
-                    "7.8",
-                    "Great film!"
-                )
+        viewModel.movieList.observe(viewLifecycleOwner) { movieList ->
+            adapter = MovieAdapter(movieList)
+            adapter.onClickListener = { movieId ->
+                val movieDetailFragment = MovieDetailFragment.newInstance(movieId)
                 requireActivity().supportFragmentManager.commit {
-                    replace(R.id.fragmentContainer, fragment)
+                    replace(R.id.fragmentContainer, movieDetailFragment)
                     setReorderingAllowed(true)
                     addToBackStack(null)
                 }
@@ -60,8 +52,6 @@ class MovieListFragment : Fragment() {
             recyclerView.adapter = adapter
             recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         }
-
-        viewModel.getMovieList()
     }
 
     private fun handleOnBackPressed() {

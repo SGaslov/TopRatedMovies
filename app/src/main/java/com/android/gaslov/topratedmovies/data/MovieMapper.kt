@@ -1,6 +1,5 @@
 package com.android.gaslov.topratedmovies.data
 
-import android.util.Log
 import com.android.gaslov.topratedmovies.data.model.GenreDto
 import com.android.gaslov.topratedmovies.data.model.MovieDetailDto
 import com.android.gaslov.topratedmovies.data.model.MovieDto
@@ -14,14 +13,15 @@ class MovieMapper {
     fun movieDetailDtoToMovie(movieDetailDto: MovieDetailDto): Movie {
         return with(movieDetailDto) {
             Movie(
-                budget = "Budget: ${budget?.toString()}",
+                movieId = movieId,
+                budget = "Budget: ${budget.toString()}",
                 genres = genresListToGenresString(genres),
-                overview = overview ?: "",
+                overview = overview,
                 popularity = popularity.toString(),
-                posterPath = posterPath ?: "",
+                posterPath = posterPath,
                 productionCountries = countriesListToCountriesString(productionCountries),
-                title = title ?: "",
-                rating = rating.toString()
+                title = title,
+                rating = "TMDB rating: ${rating.toString()}"
             )
         }
     }
@@ -29,6 +29,7 @@ class MovieMapper {
     fun movieDtoToMovie(movieDto: MovieDto, allGenresList: List<GenreDto>): Movie {
         return with(movieDto) {
             Movie(
+                movieId = movieId,
                 budget = "",
                 genres = genreIdsToGenresString(genreIds, allGenresList),
                 overview = overview,

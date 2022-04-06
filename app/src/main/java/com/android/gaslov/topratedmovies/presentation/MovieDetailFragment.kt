@@ -7,27 +7,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.activityViewModels
 import com.android.gaslov.topratedmovies.R
 
-private const val ARG_TITLE = "title"
-private const val ARG_GENRES = "genres"
-private const val ARG_RATING = "rating"
-private const val ARG_OVERVIEW = "overview"
+private const val ARG_ID = "movie_id"
 
 class MovieDetailFragment : Fragment() {
 
-    private var title: String? = null
-    private var genres: String? = null
-    private var rating: String? = null
-    private var overview: String? = null
+    private val viewModel: MovieViewModel by activityViewModels()
+
+    private var movieId: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            title = it.getString(ARG_TITLE)
-            genres = it.getString(ARG_GENRES)
-            rating = it.getString(ARG_RATING)
-            overview = it.getString(ARG_OVERVIEW)
+            movieId = it.getInt(ARG_ID)
+        }
+        movieId?.let {
+            viewModel.getMovieDetail(it)
         }
     }
 
@@ -45,32 +42,33 @@ class MovieDetailFragment : Fragment() {
 
         val titleTextView: TextView = view.findViewById(R.id.detailTitleTextView)
         val genresTextView: TextView = view.findViewById(R.id.detailGenresTextView)
+        val productionCountries: TextView = view.findViewById(R.id.productionTextView)
         val ratingTextView: TextView = view.findViewById(R.id.detailRatingTextView)
         val overviewTextView: TextView = view.findViewById(R.id.overviewTextView)
 
-        titleTextView.text = title
-        genresTextView.text = genres
-        ratingTextView.text = rating
-        overviewTextView.text = overview
+        viewModel.movieDetail.observe(viewLifecycleOwner) {
+            titleTextView.text = it.title
+            genresTextView.text = it.genres
+            productionCountries.text = it.productionCountries
+            ratingTextView.text = it.rating
+            overviewTextView.text = it.overview
+        }
     }
 
     private fun setNavBackButtonOnClickListener(view: View) {
         view.findViewById<Toolbar>(R.id.detailFragmentToolbar)
             .setNavigationOnClickListener {
-            requireActivity().supportFragmentManager?.popBackStack()
+            requireActivity().supportFragmentManager.popBackStack()
         }
     }
 
     companion object {
 
         @JvmStatic
-        fun newInstance(title: String, genres: String, rating: String, overview: String) =
+        fun newInstance(movieId: Int) =
             MovieDetailFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_TITLE, title)
-                    putString(ARG_GENRES, genres)
-                    putString(ARG_RATING, rating)
-                    putString(ARG_OVERVIEW, overview)
+                    putInt(ARG_ID, movieId)
                 }
             }
     }

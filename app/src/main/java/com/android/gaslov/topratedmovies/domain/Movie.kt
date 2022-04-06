@@ -1,6 +1,7 @@
 package com.android.gaslov.topratedmovies.domain
 
 data class Movie(
+    val movieId: Int,
     val budget: String,
     val genres: String,
     val overview: String,

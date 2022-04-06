@@ -11,7 +11,7 @@ import com.android.gaslov.topratedmovies.domain.Movie
 class MovieAdapter (private val movieList: List<Movie>) :
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
-    var onClickListener: (() -> Unit)? = null
+    var onClickListener: ((Int) -> Unit)? = null
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val titleTextView: TextView
@@ -35,14 +35,15 @@ class MovieAdapter (private val movieList: List<Movie>) :
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+        val movie = movieList[position]
         viewHolder.apply {
-            titleTextView.text = movieList[position].title
-            genresTextView.text = movieList[position].genres
-            ratingTextView.text = movieList[position].rating
+            titleTextView.text = movie.title
+            genresTextView.text = movie.genres
+            ratingTextView.text = movie.rating
         }
 
         viewHolder.itemView.setOnClickListener {
-            onClickListener?.invoke()
+            onClickListener?.invoke(movie.movieId)
         }
     }
 

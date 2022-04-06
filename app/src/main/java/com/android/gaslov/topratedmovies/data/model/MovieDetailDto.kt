@@ -1,31 +1,16 @@
 package com.android.gaslov.topratedmovies.data.model
 
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class MovieDetailDto(
-    @SerializedName("budget")
-    @Expose
-    val budget: Int?,
-    @SerializedName("genres")
-    @Expose
-    val genres: List<GenreDto>,
-    @SerializedName("overview")
-    @Expose
-    val overview: String?,
-    @SerializedName("popularity")
-    @Expose
-    val popularity: Double?,
-    @SerializedName("poster_path")
-    @Expose
-    val posterPath: String?,
-    @SerializedName("production_countries")
-    @Expose
-    val productionCountries: List<ProductionCountryDto>?,
-    @SerializedName("title")
-    @Expose
-    val title: String?,
-    @SerializedName("vote_average")
-    @Expose
-    val rating: Double?
+    @SerializedName("id") val movieId: Int,
+    @SerializedName("budget") val budget: Int,
+    @SerializedName("genres") val genres: List<GenreDto>,
+    @SerializedName("overview") val overview: String,
+    @SerializedName("popularity") val popularity: Double,
+    @SerializedName("poster_path") val posterPath: String,
+    @SerializedName("production_countries") val productionCountries: List<ProductionCountryDto>,
+    @SerializedName("release_date") val releaseDate: String,
+    @SerializedName("title") val title: String,
+    @SerializedName("vote_average") val rating: Double
 )
