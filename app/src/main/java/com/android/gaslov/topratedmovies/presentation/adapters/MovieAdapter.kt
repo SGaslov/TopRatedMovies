@@ -3,10 +3,12 @@ package com.android.gaslov.topratedmovies.presentation.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.android.gaslov.topratedmovies.R
 import com.android.gaslov.topratedmovies.domain.Movie
+import com.squareup.picasso.Picasso
 
 class MovieAdapter (private val movieList: List<Movie>) :
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
@@ -17,12 +19,14 @@ class MovieAdapter (private val movieList: List<Movie>) :
         val titleTextView: TextView
         val genresTextView: TextView
         val ratingTextView: TextView
+        val posterImageView: ImageView
 
         init {
             with(view) {
                 titleTextView = findViewById(R.id.titleTextView)
                 genresTextView = findViewById(R.id.genresTextView)
                 ratingTextView = findViewById(R.id.ratingTextView)
+                posterImageView = findViewById(R.id.posterImageView)
             }
         }
     }
@@ -40,6 +44,11 @@ class MovieAdapter (private val movieList: List<Movie>) :
             titleTextView.text = movie.title
             genresTextView.text = movie.genres
             ratingTextView.text = movie.rating
+
+            Picasso
+                .get()
+                .load(POSTER_BASE_URL + movie.posterPath)
+                .into(posterImageView)
         }
 
         viewHolder.itemView.setOnClickListener {
@@ -48,5 +57,10 @@ class MovieAdapter (private val movieList: List<Movie>) :
     }
 
     override fun getItemCount() = movieList.size
+
+    companion object {
+
+        private const val POSTER_BASE_URL = "https://image.tmdb.org/t/p/w200"
+    }
 
 }

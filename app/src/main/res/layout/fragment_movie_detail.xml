@@ -27,11 +27,11 @@
 
             <ImageView
                 android:id="@+id/detailPosterImageView"
-                android:layout_width="0dp"
-                android:layout_height="384dp"
+                android:layout_width="260dp"
+                android:layout_height="390dp"
                 android:layout_marginTop="16dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/temp_poster_w500"
+                android:scaleType="centerCrop"
+                android:src="@drawable/temp_poster_w300"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

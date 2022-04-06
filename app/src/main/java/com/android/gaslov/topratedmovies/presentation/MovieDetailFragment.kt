@@ -5,10 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.activityViewModels
 import com.android.gaslov.topratedmovies.R
+import com.squareup.picasso.Picasso
 
 private const val ARG_ID = "movie_id"
 
@@ -45,6 +47,7 @@ class MovieDetailFragment : Fragment() {
         val productionCountries: TextView = view.findViewById(R.id.productionTextView)
         val ratingTextView: TextView = view.findViewById(R.id.detailRatingTextView)
         val overviewTextView: TextView = view.findViewById(R.id.overviewTextView)
+        val posterImageView: ImageView = view.findViewById(R.id.detailPosterImageView)
 
         viewModel.movieDetail.observe(viewLifecycleOwner) {
             titleTextView.text = it.title
@@ -52,6 +55,11 @@ class MovieDetailFragment : Fragment() {
             productionCountries.text = it.productionCountries
             ratingTextView.text = it.rating
             overviewTextView.text = it.overview
+
+            Picasso
+                .get()
+                .load(POSTER_BASE_URL + it.posterPath)
+                .into(posterImageView)
         }
     }
 
@@ -63,6 +71,8 @@ class MovieDetailFragment : Fragment() {
     }
 
     companion object {
+
+        private const val POSTER_BASE_URL = "https://image.tmdb.org/t/p/w300"
 
         @JvmStatic
         fun newInstance(movieId: Int) =
