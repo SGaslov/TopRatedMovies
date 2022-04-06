@@ -18,54 +18,49 @@
         <ImageView
             android:id="@+id/posterImageView"
             android:layout_width="wrap_content"
-            android:layout_height="160dp"
+            android:layout_height="176dp"
             android:padding="8dp"
             android:scaleType="fitStart"
             android:src="@drawable/temp_poster_w500"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
         <TextView
             android:id="@+id/titleTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="120dp"
-            android:layout_marginEnd="4dp"
+            android:layout_marginStart="128dp"
+            android:layout_marginEnd="16dp"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/detailGenresTextView"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/posterImageView"
-            app:layout_constraintTop_toBottomOf="@+id/posterImageView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="Finding Nemo Collection" />
 
         <TextView
-            android:id="@+id/popularityTextView"
-            android:layout_width="wrap_content"
+            android:id="@+id/genresTextView"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/ratingTextView"
+            app:layout_constraintEnd_toEndOf="@+id/titleTextView"
             app:layout_constraintStart_toStartOf="@+id/titleTextView"
-            app:layout_constraintTop_toBottomOf="@+id/detailGenresTextView"
-            tools:text="Popularity: 100.4" />
+            app:layout_constraintTop_toTopOf="@+id/guideline"
+            tools:text="Animation, Family" />
 
         <TextView
             android:id="@+id/ratingTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/posterImageView"
-            app:layout_constraintStart_toStartOf="@+id/titleTextView"
-            app:layout_constraintTop_toBottomOf="@+id/popularityTextView"
+            app:layout_constraintStart_toStartOf="@+id/genresTextView"
+            app:layout_constraintTop_toBottomOf="@+id/genresTextView"
             tools:text="Rating: 7.8" />
-
-        <TextView
-            android:id="@+id/detailGenresTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/popularityTextView"
-            app:layout_constraintStart_toStartOf="@+id/titleTextView"
-            app:layout_constraintTop_toBottomOf="@+id/titleTextView"
-            tools:text="Animation, Family" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

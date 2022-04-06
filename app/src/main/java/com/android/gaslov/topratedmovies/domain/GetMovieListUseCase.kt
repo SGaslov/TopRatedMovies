@@ -6,5 +6,5 @@ class GetMovieListUseCase() {
 
     private val repository: MovieRepository = MovieRepositoryImpl()
 
-    operator fun invoke() = repository.getMovieList()
+    suspend operator fun invoke() = repository.getMovieList()
 }

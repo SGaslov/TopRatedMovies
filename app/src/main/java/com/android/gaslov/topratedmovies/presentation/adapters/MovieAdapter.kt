@@ -16,14 +16,12 @@ class MovieAdapter (private val movieList: List<Movie>) :
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val titleTextView: TextView
         val genresTextView: TextView
-        val popularityTextView: TextView
         val ratingTextView: TextView
 
         init {
             with(view) {
                 titleTextView = findViewById(R.id.titleTextView)
-                genresTextView = findViewById(R.id.detailGenresTextView)
-                popularityTextView = findViewById(R.id.popularityTextView)
+                genresTextView = findViewById(R.id.genresTextView)
                 ratingTextView = findViewById(R.id.ratingTextView)
             }
         }
@@ -40,7 +38,6 @@ class MovieAdapter (private val movieList: List<Movie>) :
         viewHolder.apply {
             titleTextView.text = movieList[position].title
             genresTextView.text = movieList[position].genres
-            popularityTextView.text = movieList[position].popularity
             ratingTextView.text = movieList[position].rating
         }
 

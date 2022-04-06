@@ -1,10 +1,8 @@
 package com.android.gaslov.topratedmovies.domain
 
-import androidx.lifecycle.LiveData
-
 interface MovieRepository {
 
-    fun getMovie(movieId: Int): LiveData<Movie>
+    suspend fun getMovie(movieId: Int): Movie
 
-    fun getMovieList(): LiveData<List<Movie>>
+    suspend fun getMovieList(): List<Movie>
 }

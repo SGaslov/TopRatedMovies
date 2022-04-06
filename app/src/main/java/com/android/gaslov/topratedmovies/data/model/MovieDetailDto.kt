@@ -9,7 +9,7 @@ data class MovieDetailDto(
     val budget: Int?,
     @SerializedName("genres")
     @Expose
-    val genres: List<GenreDto>?,
+    val genres: List<GenreDto>,
     @SerializedName("overview")
     @Expose
     val overview: String?,

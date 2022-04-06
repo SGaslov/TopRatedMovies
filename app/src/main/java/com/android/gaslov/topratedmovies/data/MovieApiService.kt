@@ -1,6 +1,7 @@
 package com.android.gaslov.topratedmovies.data
 
 import com.android.gaslov.topratedmovies.BuildConfig
+import com.android.gaslov.topratedmovies.data.model.GenreListDto
 import com.android.gaslov.topratedmovies.data.model.MovieDetailDto
 import com.android.gaslov.topratedmovies.data.model.MovieListContainerDto
 import retrofit2.http.GET
@@ -10,18 +11,24 @@ import retrofit2.http.Query
 interface MovieApiService {
 
     @GET("movie/top_rated")
-    fun getTopRatedMovies(
+    suspend fun getTopRatedMovies(
         @Query(QUERY_PARAM_API_KEY) apiKey: String = HIDDEN_API_KEY,
         @Query(QUERY_PARAM_LANGUAGE) language: String = LANGUAGE,
         @Query(QUERY_PARAM_PAGE) page: Int = 1
     ): MovieListContainerDto
 
-    @GET("/movie/{movie_id}")
-    fun getMovieDetail(
+    @GET("movie/{movie_id}")
+    suspend fun getMovieDetail(
         @Path("movie_id") movieId: String,
         @Query(QUERY_PARAM_API_KEY) apiKey: String = HIDDEN_API_KEY,
         @Query(QUERY_PARAM_LANGUAGE) language: String = LANGUAGE
     ): MovieDetailDto
+
+    @GET("genre/movie/list")
+    suspend fun getAllGenreList(
+        @Query(QUERY_PARAM_API_KEY) apiKey: String = HIDDEN_API_KEY,
+        @Query(QUERY_PARAM_LANGUAGE) language: String = LANGUAGE
+    ): GenreListDto
 
     companion object {
 

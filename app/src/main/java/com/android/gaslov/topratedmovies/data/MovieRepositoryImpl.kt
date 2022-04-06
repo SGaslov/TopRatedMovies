@@ -1,7 +1,5 @@
 package com.android.gaslov.topratedmovies.data
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.android.gaslov.topratedmovies.domain.Movie
 import com.android.gaslov.topratedmovies.domain.MovieRepository
 
@@ -11,24 +9,17 @@ class MovieRepositoryImpl : MovieRepository {
 
     private val mapper = MovieMapper()
 
-    override fun getMovie(movieId: Int): LiveData<Movie> {
+    override suspend fun getMovie(movieId: Int): Movie {
         val movieDetailDto = apiService.getMovieDetail(movieId.toString())
-
-        val movie = mapper.movieDetailDtoToMovie(movieDetailDto)
-
-        return MutableLiveData<Movie>().apply {
-            value = movie
-        }
+        return mapper.movieDetailDtoToMovie(movieDetailDto)
     }
 
-    override fun getMovieList(): LiveData<List<Movie>> {
+    override suspend fun getMovieList(): List<Movie> {
         val movieListContainerDto = apiService.getTopRatedMovies()
         val movieListDto = movieListContainerDto.movieList
 
-        val movieList = movieListDto?.map { mapper.movieDtoToMovie(it) } ?: listOf()
+        val allGenresList =apiService.getAllGenreList().genreList
 
-            return MutableLiveData<List<Movie>>().apply {
-                value = movieList
-            }
+        return movieListDto.map { mapper.movieDtoToMovie(it, allGenresList) }
     }
 }

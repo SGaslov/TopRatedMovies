@@ -1,6 +1,7 @@
 package com.android.gaslov.topratedmovies.presentation
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,8 +22,6 @@ class MovieListFragment : Fragment() {
 
     private val viewModel: MovieViewModel by activityViewModels()
 
-    private val movieList = mutableListOf<Movie>()
-
     private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,9 +41,8 @@ class MovieListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         recyclerView = view.findViewById(R.id.movieListRecyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(requireActivity())
 
-        viewModel.getMovieList().observe(viewLifecycleOwner) {
+        viewModel.movieList.observe(viewLifecycleOwner) {
             adapter = MovieAdapter(it)
             adapter.onClickListener = {
                 val fragment = MovieDetailFragment.newInstance(
@@ -60,7 +58,10 @@ class MovieListFragment : Fragment() {
                 }
             }
             recyclerView.adapter = adapter
+            recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         }
+
+        viewModel.getMovieList()
     }
 
     private fun handleOnBackPressed() {
@@ -71,27 +72,4 @@ class MovieListFragment : Fragment() {
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
-
-//    private fun fillMovieList() {
-//        movieList.apply {
-//            for (i in 1..20) {
-//                add(
-//                    Movie(
-//                        i,
-//                        listOf("Animation", "Family"),
-//                        "Overview: Nemo, an adventurous young clownfish, is unexpectedly taken" +
-//                                " from his Great Barrier Reef home to a dentist's office aquarium. It's" +
-//                                " up to his worrisome father Marlin and a friendly but forgetful fish" +
-//                                " Dory to bring Nemo home -- meeting vegetarian sharks, surfer dude" +
-//                                " turtles, hypnotic jellyfish, hungry seagulls, and more along the way.",
-//                        5500.0,
-//                        "",
-//                        listOf("USA"),
-//                        "Finding Nemo Finding Nemo Finding Nemo Finding Nemo",
-//                        7.8
-//                    )
-//                )
-//            }
-//        }
-//    }
 }
