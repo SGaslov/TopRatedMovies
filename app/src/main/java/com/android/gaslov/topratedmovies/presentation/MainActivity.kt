@@ -1,14 +1,11 @@
 package com.android.gaslov.topratedmovies.presentation
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import com.android.gaslov.topratedmovies.R
 
 class MainActivity : AppCompatActivity() {
-
-    private val viewModel: MovieViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +17,6 @@ class MainActivity : AppCompatActivity() {
                 setReorderingAllowed(true)
                 addToBackStack(null)
             }
-            viewModel.getMovieList()
         }
     }
 }
