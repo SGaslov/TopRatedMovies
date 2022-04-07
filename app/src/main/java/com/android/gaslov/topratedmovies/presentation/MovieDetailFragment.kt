@@ -35,17 +35,19 @@ class MovieDetailFragment : Fragment() {
         val overviewTextView: TextView = view.findViewById(R.id.overviewTextView)
         val posterImageView: ImageView = view.findViewById(R.id.detailPosterImageView)
 
-        viewModel.movieDetail.observe(viewLifecycleOwner) {
-            titleTextView.text = it.title
-            genresTextView.text = it.genres
-            productionCountries.text = it.productionCountries
-            ratingTextView.text = it.rating
-            overviewTextView.text = it.overview
+        viewModel.movieDetail.observe(viewLifecycleOwner) { wrapper ->
+            wrapper.getContentIfNotHandled()?.let { movie ->
+                titleTextView.text = movie.title
+                genresTextView.text = movie.genres
+                productionCountries.text = movie.productionCountries
+                ratingTextView.text = movie.rating
+                overviewTextView.text = movie.overview
 
-            Picasso
-                .get()
-                .load(POSTER_BASE_URL + it.posterPath)
-                .into(posterImageView)
+                Picasso
+                    .get()
+                    .load(POSTER_BASE_URL + movie.posterPath)
+                    .into(posterImageView)
+            }
         }
     }
 
