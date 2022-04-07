@@ -12,23 +12,9 @@ import androidx.fragment.app.activityViewModels
 import com.android.gaslov.topratedmovies.R
 import com.squareup.picasso.Picasso
 
-private const val ARG_ID = "movie_id"
-
 class MovieDetailFragment : Fragment() {
 
     private val viewModel: MovieViewModel by activityViewModels()
-
-    private var movieId: Int? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            movieId = it.getInt(ARG_ID)
-        }
-        movieId?.let {
-            viewModel.getMovieDetail(it)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -73,13 +59,5 @@ class MovieDetailFragment : Fragment() {
     companion object {
 
         private const val POSTER_BASE_URL = "https://image.tmdb.org/t/p/w300"
-
-        @JvmStatic
-        fun newInstance(movieId: Int) =
-            MovieDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_ID, movieId)
-                }
-            }
     }
 }
