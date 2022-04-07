@@ -26,6 +26,8 @@ class MovieDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val movieId = requireArguments().getInt(ARG_MOVIE_ID)
+
         setNavBackButtonOnClickListener(view)
 
         val titleTextView: TextView = view.findViewById(R.id.detailTitleTextView)
@@ -35,31 +37,42 @@ class MovieDetailFragment : Fragment() {
         val overviewTextView: TextView = view.findViewById(R.id.overviewTextView)
         val posterImageView: ImageView = view.findViewById(R.id.detailPosterImageView)
 
-        viewModel.movieDetail.observe(viewLifecycleOwner) { wrapper ->
-            wrapper.getContentIfNotHandled()?.let { movie ->
-                titleTextView.text = movie.title
-                genresTextView.text = movie.genres
-                productionCountries.text = movie.productionCountries
-                ratingTextView.text = movie.rating
-                overviewTextView.text = movie.overview
+        if (savedInstanceState == null) {
+            viewModel.getMovieDetail(movieId)
+        }
 
-                Picasso
-                    .get()
-                    .load(POSTER_BASE_URL + movie.posterPath)
-                    .into(posterImageView)
-            }
+        viewModel.movieDetail.observe(viewLifecycleOwner) {
+            titleTextView.text = it.title
+            genresTextView.text = it.genres
+            productionCountries.text = it.productionCountries
+            ratingTextView.text = it.rating
+            overviewTextView.text = it.overview
+
+            Picasso
+                .get()
+                .load(POSTER_BASE_URL + it.posterPath)
+                .into(posterImageView)
         }
     }
 
     private fun setNavBackButtonOnClickListener(view: View) {
         view.findViewById<Toolbar>(R.id.detailFragmentToolbar)
             .setNavigationOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
-        }
+                requireActivity().supportFragmentManager.popBackStack()
+            }
     }
 
     companion object {
 
+        private const val ARG_MOVIE_ID = "movie_id"
         private const val POSTER_BASE_URL = "https://image.tmdb.org/t/p/w300"
+
+        fun newInstance(movieId: Int): Fragment {
+            return MovieDetailFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(ARG_MOVIE_ID, movieId)
+                }
+            }
+        }
     }
 }

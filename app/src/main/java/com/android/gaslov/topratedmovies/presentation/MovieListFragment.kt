@@ -42,10 +42,10 @@ class MovieListFragment : Fragment() {
         viewModel.movieList.observe(viewLifecycleOwner) { movieList ->
             adapter = MovieAdapter(movieList)
             adapter.onClickListener = { movieId ->
-                viewModel.getMovieDetail(movieId)
+                val movieDetailFragment = MovieDetailFragment.newInstance(movieId)
 
                 requireActivity().supportFragmentManager.commit {
-                    replace(R.id.fragmentContainer, MovieDetailFragment())
+                    replace(R.id.fragmentContainer, movieDetailFragment)
                     setReorderingAllowed(true)
                     addToBackStack(null)
                 }

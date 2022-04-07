@@ -18,8 +18,8 @@ class MovieViewModel : ViewModel() {
     val movieList: LiveData<List<Movie>>
         get() = _movieList
 
-    private val _movieDetail = MutableLiveData<Wrapper<Movie>>()
-    val movieDetail: LiveData<Wrapper<Movie>>
+    private val _movieDetail = MutableLiveData<Movie>()
+    val movieDetail: LiveData<Movie>
         get() = _movieDetail
 
     fun getMovieList() {
@@ -32,7 +32,7 @@ class MovieViewModel : ViewModel() {
     fun getMovieDetail(movieId: Int) {
         viewModelScope.launch {
             val movieDetail = getMovieUseCase(movieId)
-            _movieDetail.value = Wrapper(movieDetail)
+            _movieDetail.value = movieDetail
         }
     }
 }
