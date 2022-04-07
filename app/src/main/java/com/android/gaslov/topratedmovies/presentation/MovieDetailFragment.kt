@@ -37,9 +37,7 @@ class MovieDetailFragment : Fragment() {
         val overviewTextView: TextView = view.findViewById(R.id.overviewTextView)
         val posterImageView: ImageView = view.findViewById(R.id.detailPosterImageView)
 
-        if (savedInstanceState == null) {
-            viewModel.getMovieDetail(movieId)
-        }
+        loadMovieDetailData(savedInstanceState, movieId)
 
         viewModel.movieDetail.observe(viewLifecycleOwner) {
             titleTextView.text = it.title
@@ -52,6 +50,12 @@ class MovieDetailFragment : Fragment() {
                 .get()
                 .load(POSTER_BASE_URL + it.posterPath)
                 .into(posterImageView)
+        }
+    }
+
+    private fun loadMovieDetailData(savedInstanceState: Bundle?, movieId: Int) {
+        if (savedInstanceState == null) {
+            viewModel.getMovieDetail(movieId)
         }
     }
 

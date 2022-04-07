@@ -38,7 +38,11 @@ class MovieListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         recyclerView = view.findViewById(R.id.movieListRecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(requireActivity())
 
+        if (savedInstanceState == null) {
+            viewModel.getMovieList()
+        }
         viewModel.movieList.observe(viewLifecycleOwner) { movieList ->
             adapter = MovieAdapter(movieList)
             adapter.onClickListener = { movieId ->
@@ -51,7 +55,6 @@ class MovieListFragment : Fragment() {
                 }
             }
             recyclerView.adapter = adapter
-            recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         }
     }
 
