@@ -10,21 +10,30 @@ import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.activityViewModels
 import com.android.gaslov.topratedmovies.R
+import com.android.gaslov.topratedmovies.databinding.FragmentMovieDetailBinding
 import com.squareup.picasso.Picasso
 
 class MovieDetailFragment : Fragment() {
 
     private val viewModel: MovieViewModel by activityViewModels()
 
+    private var _binding: FragmentMovieDetailBinding? = null
+    private val binding: FragmentMovieDetailBinding
+    get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_movie_detail, container, false)
+    ): View {
+        _binding = FragmentMovieDetailBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.viewModel = viewModel
+//        binding.lifecycleOwner = viewLifecycleOwner
 
         setNavBackButtonOnClickListener(view)
 
@@ -37,7 +46,7 @@ class MovieDetailFragment : Fragment() {
 
         viewModel.movieDetail.observe(viewLifecycleOwner) { wrapper ->
             wrapper.getContentIfNotHandled()?.let { movie ->
-                titleTextView.text = movie.title
+//                titleTextView.text = movie.title
                 genresTextView.text = movie.genres
                 productionCountries.text = movie.productionCountries
                 ratingTextView.text = movie.rating

@@ -23,6 +23,10 @@ android {
         buildConfigField "String", "API_KEY", apikeyProperties['API_KEY']
     }
 
+    buildFeatures {
+        dataBinding true
+    }
+
     buildTypes {
         release {
             minifyEnabled false
