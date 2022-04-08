@@ -8,16 +8,21 @@ import com.android.gaslov.topratedmovies.R
 import com.android.gaslov.topratedmovies.databinding.MovieItemBinding
 import com.android.gaslov.topratedmovies.domain.Movie
 
-class MovieAdapter (private val movieList: List<Movie>) :
+class MovieAdapter(private val movieList: List<Movie>) :
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
-    var onClickListener: ((Int) -> Unit)? = null
-
-    class ViewHolder(val binding: MovieItemBinding) : RecyclerView.ViewHolder(binding.root)
+    class ViewHolder(val binding: MovieItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.root.setOnClickListener {
+                onClickListener?.invoke(binding.movie?.movieId!!)
+            }
+        }
+    }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(viewGroup.context)
-        val binding: MovieItemBinding = DataBindingUtil.inflate(layoutInflater, R.layout.movie_item, viewGroup, false)
+        val binding: MovieItemBinding =
+            DataBindingUtil.inflate(layoutInflater, R.layout.movie_item, viewGroup, false)
 
         return ViewHolder(binding)
     }
@@ -26,11 +31,12 @@ class MovieAdapter (private val movieList: List<Movie>) :
         val movie = movieList[position]
         val binding = viewHolder.binding
         binding.movie = movie
-
-        viewHolder.itemView.setOnClickListener {
-            onClickListener?.invoke(movie.movieId)
-        }
     }
 
     override fun getItemCount() = movieList.size
+
+    companion object {
+
+        var onClickListener: ((Int) -> Unit)? = null
+    }
 }

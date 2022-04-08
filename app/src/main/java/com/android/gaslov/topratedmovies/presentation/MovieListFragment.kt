@@ -41,19 +41,24 @@ class MovieListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
 
         loadMovieListData(savedInstanceState)
+
+        setRecyclerViewOnItemClickListener()
         
         viewModel.movieList.observe(viewLifecycleOwner) { movieList ->
             adapter = MovieAdapter(movieList)
-            adapter.onClickListener = { movieId ->
-                val movieDetailFragment = MovieDetailFragment.newInstance(movieId)
-
-                requireActivity().supportFragmentManager.commit {
-                    replace(R.id.fragmentContainer, movieDetailFragment)
-                    setReorderingAllowed(true)
-                    addToBackStack(null)
-                }
-            }
             recyclerView.adapter = adapter
+        }
+    }
+
+    private fun setRecyclerViewOnItemClickListener() {
+        MovieAdapter.onClickListener = { movieId ->
+            val movieDetailFragment = MovieDetailFragment.newInstance(movieId)
+
+            requireActivity().supportFragmentManager.commit {
+                replace(R.id.fragmentContainer, movieDetailFragment)
+                setReorderingAllowed(true)
+                addToBackStack(null)
+            }
         }
     }
 
