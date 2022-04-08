@@ -40,9 +40,8 @@ class MovieListFragment : Fragment() {
         recyclerView = view.findViewById(R.id.movieListRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
 
-        if (savedInstanceState == null) {
-            viewModel.getMovieList()
-        }
+        loadMovieListData(savedInstanceState)
+
         viewModel.movieList.observe(viewLifecycleOwner) { movieList ->
             adapter = MovieAdapter(movieList)
             adapter.onClickListener = { movieId ->
@@ -55,6 +54,12 @@ class MovieListFragment : Fragment() {
                 }
             }
             recyclerView.adapter = adapter
+        }
+    }
+
+    private fun loadMovieListData(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) {
+            viewModel.getMovieList()
         }
     }
 
