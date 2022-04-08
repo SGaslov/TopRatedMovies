@@ -4,14 +4,25 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.squareup.picasso.Picasso
 
-private const val BASE_BIG_POSTER_URL = "https://image.tmdb.org/t/p/w300"
+private const val BIG_POSTER_BASE_URL = "https://image.tmdb.org/t/p/w300"
+private const val SMALL_POSTER_BASE_URL = "https://image.tmdb.org/t/p/w200"
 
-@BindingAdapter("imageUrlEndpoint")
-fun loadImage(view: ImageView, posterPath: String?) {
+@BindingAdapter("bigPosterEndpointUrl")
+fun loadBigImage(view: ImageView, posterPath: String?) {
     posterPath?.let {
         Picasso
             .get()
-            .load(BASE_BIG_POSTER_URL + posterPath)
+            .load(BIG_POSTER_BASE_URL + posterPath)
+            .into(view)
+    }
+}
+
+@BindingAdapter("smallPosterEndpointUrl")
+fun loadSmallImage(view: ImageView, posterPath: String?) {
+    posterPath?.let {
+        Picasso
+            .get()
+            .load(SMALL_POSTER_BASE_URL + posterPath)
             .into(view)
     }
 }
