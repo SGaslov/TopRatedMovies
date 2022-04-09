@@ -39,14 +39,15 @@ class MovieListFragment : Fragment() {
 
         recyclerView = view.findViewById(R.id.movieListRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
+        adapter = MovieAdapter()
+        recyclerView.adapter = adapter
 
         loadMovieListData(savedInstanceState)
 
         setRecyclerViewOnItemClickListener()
         
-        viewModel.movieList.observe(viewLifecycleOwner) { movieList ->
-            adapter = MovieAdapter(movieList)
-            recyclerView.adapter = adapter
+        viewModel.movieList.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
         }
     }
 
