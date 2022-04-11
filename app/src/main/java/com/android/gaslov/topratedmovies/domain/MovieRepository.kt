@@ -4,5 +4,5 @@ interface MovieRepository {
 
     suspend fun getMovie(movieId: Int): Movie
 
-    suspend fun getMovieList(): List<Movie>
+    suspend fun getMovieList(page: Int): List<Movie>
 }

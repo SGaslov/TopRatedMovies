@@ -4,30 +4,27 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.android.gaslov.topratedmovies.domain.GetMovieListUseCase
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
+import com.android.gaslov.topratedmovies.data.paging.MoviePagingSource
 import com.android.gaslov.topratedmovies.domain.GetMovieUseCase
 import com.android.gaslov.topratedmovies.domain.Movie
 import kotlinx.coroutines.launch
 
 class MovieViewModel : ViewModel() {
 
-    private val getMovieListUseCase = GetMovieListUseCase()
     private val getMovieUseCase = GetMovieUseCase()
-
-    private val _movieList = MutableLiveData<List<Movie>>()
-    val movieList: LiveData<List<Movie>>
-        get() = _movieList
 
     private val _movieDetail = MutableLiveData<Movie>()
     val movieDetail: LiveData<Movie>
         get() = _movieDetail
 
-    fun getMovieList() {
-        viewModelScope.launch {
-            val movieList = getMovieListUseCase()
-            _movieList.value = movieList
-        }
-    }
+    val flow = Pager(
+        PagingConfig(pageSize = 20)
+    ) {
+        MoviePagingSource()
+    }.flow.cachedIn(viewModelScope)
 
     fun getMovieDetail(movieId: Int) {
         viewModelScope.launch {

@@ -3,13 +3,13 @@ package com.android.gaslov.topratedmovies.presentation.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.ListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.android.gaslov.topratedmovies.R
 import com.android.gaslov.topratedmovies.databinding.MovieItemBinding
 import com.android.gaslov.topratedmovies.domain.Movie
 
-class MovieAdapter : ListAdapter<Movie, MovieAdapter.ViewHolder>(MovieDiffCallback()) {
+class MovieAdapter : PagingDataAdapter<Movie, MovieAdapter.ViewHolder>(MovieDiffCallback()) {
 
     class ViewHolder(val binding: MovieItemBinding) : RecyclerView.ViewHolder(binding.root) {
         init {

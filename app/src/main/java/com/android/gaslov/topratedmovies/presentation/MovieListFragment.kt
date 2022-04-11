@@ -8,11 +8,13 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.android.gaslov.topratedmovies.R
 import com.android.gaslov.topratedmovies.databinding.FragmentMovieListBinding
 import com.android.gaslov.topratedmovies.presentation.adapters.MovieAdapter
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class MovieListFragment : Fragment() {
 
@@ -41,14 +43,14 @@ class MovieListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        loadMovieListData(savedInstanceState)
-
         setUpRecyclerView()
 
         setRecyclerViewOnItemClickListener()
 
-        viewModel.movieList.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.flow.collectLatest { pagingData ->
+                adapter.submitData(pagingData)
+            }
         }
     }
 
@@ -68,12 +70,6 @@ class MovieListFragment : Fragment() {
                 setReorderingAllowed(true)
                 addToBackStack(null)
             }
-        }
-    }
-
-    private fun loadMovieListData(savedInstanceState: Bundle?) {
-        if (savedInstanceState == null) {
-            viewModel.getMovieList()
         }
     }
 
