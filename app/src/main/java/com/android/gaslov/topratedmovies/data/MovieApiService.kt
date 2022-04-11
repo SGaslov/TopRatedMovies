@@ -14,7 +14,7 @@ interface MovieApiService {
     suspend fun getTopRatedMovies(
         @Query(QUERY_PARAM_API_KEY) apiKey: String = HIDDEN_API_KEY,
         @Query(QUERY_PARAM_LANGUAGE) language: String = LANGUAGE,
-        @Query(QUERY_PARAM_PAGE) page: Int = 1
+        @Query(QUERY_PARAM_PAGE) page: Int
     ): MovieListContainerDto
 
     @GET("movie/{movie_id}")

@@ -14,8 +14,8 @@ class MovieRepositoryImpl : MovieRepository {
         return mapper.movieDetailDtoToMovie(movieDetailDto)
     }
 
-    override suspend fun getMovieList(): List<Movie> {
-        val movieListContainerDto = apiService.getTopRatedMovies()
+    override suspend fun getMovieList(page: Int): List<Movie> {
+        val movieListContainerDto = apiService.getTopRatedMovies(page = page)
         val movieListDto = movieListContainerDto.movieList
 
         val allGenresList =apiService.getAllGenreList().genreList

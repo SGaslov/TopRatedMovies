@@ -22,9 +22,9 @@ class MovieViewModel : ViewModel() {
     val movieDetail: LiveData<Movie>
         get() = _movieDetail
 
-    fun getMovieList() {
+    fun getMovieList(page: Int) {
         viewModelScope.launch {
-            val movieList = getMovieListUseCase()
+            val movieList = getMovieListUseCase(page)
             _movieList.value = movieList
         }
     }

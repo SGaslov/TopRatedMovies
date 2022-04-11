@@ -9,7 +9,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.android.gaslov.topratedmovies.R
 import com.android.gaslov.topratedmovies.databinding.FragmentMovieListBinding
 import com.android.gaslov.topratedmovies.presentation.adapters.MovieAdapter
@@ -73,7 +72,7 @@ class MovieListFragment : Fragment() {
 
     private fun loadMovieListData(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
-            viewModel.getMovieList()
+            viewModel.getMovieList(3)
         }
     }
 
