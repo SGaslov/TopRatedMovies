@@ -11,6 +11,7 @@ import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.gaslov.topratedmovies.R
+import com.android.gaslov.topratedmovies.databinding.FragmentMovieListBinding
 import com.android.gaslov.topratedmovies.presentation.adapters.MovieAdapter
 
 class MovieListFragment : Fragment() {
@@ -19,7 +20,9 @@ class MovieListFragment : Fragment() {
 
     private val viewModel: MovieViewModel by activityViewModels()
 
-    private lateinit var recyclerView: RecyclerView
+    private var _binding: FragmentMovieListBinding? = null
+    private val binding: FragmentMovieListBinding
+        get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,25 +33,30 @@ class MovieListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_movie_list, container, false)
+    ): View {
+        _binding = FragmentMovieListBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recyclerView = view.findViewById(R.id.movieListRecyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-        adapter = MovieAdapter()
-        recyclerView.adapter = adapter
-
         loadMovieListData(savedInstanceState)
 
+        setUpRecyclerView()
+
         setRecyclerViewOnItemClickListener()
-        
+
         viewModel.movieList.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
+    }
+
+    private fun setUpRecyclerView() {
+        val recyclerView = binding.movieListRecyclerView
+        recyclerView.layoutManager = LinearLayoutManager(requireActivity())
+        adapter = MovieAdapter()
+        recyclerView.adapter = adapter
     }
 
     private fun setRecyclerViewOnItemClickListener() {
