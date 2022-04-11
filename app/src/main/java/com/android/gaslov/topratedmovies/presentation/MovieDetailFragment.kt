@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import com.android.gaslov.topratedmovies.R
 import com.android.gaslov.topratedmovies.databinding.FragmentMovieDetailBinding
 
 class MovieDetailFragment : Fragment() {
 
-    private val viewModel: MovieViewModel by activityViewModels()
+    private lateinit var viewModel: MovieViewModel
 
     private var _binding: FragmentMovieDetailBinding? = null
     private val binding: FragmentMovieDetailBinding
@@ -29,20 +29,18 @@ class MovieDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = viewLifecycleOwner
+        viewModel = ViewModelProvider(this)[MovieViewModel::class.java]
 
         val movieId = requireArguments().getInt(ARG_MOVIE_ID)
 
-        setNavBackButtonOnClickListener(view)
-
-        loadMovieDetailData(savedInstanceState, movieId)
-    }
-
-    private fun loadMovieDetailData(savedInstanceState: Bundle?, movieId: Int) {
         if (savedInstanceState == null) {
-            viewModel.getMovieDetail(movieId)
+            viewModel.loadMovieDetailInfo(movieId)
         }
+
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
+        setNavBackButtonOnClickListener(view)
     }
 
     private fun setNavBackButtonOnClickListener(view: View) {

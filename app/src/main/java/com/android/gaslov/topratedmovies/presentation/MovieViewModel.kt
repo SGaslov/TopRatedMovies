@@ -26,7 +26,7 @@ class MovieViewModel : ViewModel() {
         MoviePagingSource()
     }.flow.cachedIn(viewModelScope)
 
-    fun getMovieDetail(movieId: Int) {
+    fun loadMovieDetailInfo(movieId: Int) {
         viewModelScope.launch {
             val movieDetail = getMovieUseCase(movieId)
             _movieDetail.value = movieDetail

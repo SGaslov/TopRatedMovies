@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.gaslov.topratedmovies.R
@@ -20,7 +20,7 @@ class MovieListFragment : Fragment() {
 
     private lateinit var adapter: MovieAdapter
 
-    private val viewModel: MovieViewModel by activityViewModels()
+    private lateinit var viewModel: MovieViewModel
 
     private var _binding: FragmentMovieListBinding? = null
     private val binding: FragmentMovieListBinding
@@ -42,6 +42,8 @@ class MovieListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProvider(this)[MovieViewModel::class.java]
 
         setUpRecyclerView()
 
