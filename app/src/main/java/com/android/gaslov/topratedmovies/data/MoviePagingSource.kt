@@ -1,4 +1,4 @@
-package com.android.gaslov.topratedmovies.data.paging
+package com.android.gaslov.topratedmovies.data
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState

@@ -1,4 +1,4 @@
-package com.android.gaslov.topratedmovies.data
+package com.android.gaslov.topratedmovies.data.api
 
 import com.android.gaslov.topratedmovies.BuildConfig
 import com.android.gaslov.topratedmovies.data.model.GenreListDto
