@@ -1,4 +1,4 @@
-package com.android.gaslov.topratedmovies.data.model
+package com.android.gaslov.topratedmovies.data.network.model
 
 import com.google.gson.annotations.SerializedName
 

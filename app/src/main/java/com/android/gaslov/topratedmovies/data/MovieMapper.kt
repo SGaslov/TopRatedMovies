@@ -1,9 +1,9 @@
 package com.android.gaslov.topratedmovies.data
 
-import com.android.gaslov.topratedmovies.data.model.GenreDto
-import com.android.gaslov.topratedmovies.data.model.MovieDetailDto
-import com.android.gaslov.topratedmovies.data.model.MovieDto
-import com.android.gaslov.topratedmovies.data.model.ProductionCountryDto
+import com.android.gaslov.topratedmovies.data.network.model.GenreDto
+import com.android.gaslov.topratedmovies.data.network.model.MovieDetailDto
+import com.android.gaslov.topratedmovies.data.network.model.MovieDto
+import com.android.gaslov.topratedmovies.data.network.model.ProductionCountryDto
 import com.android.gaslov.topratedmovies.domain.Movie
 
 class MovieMapper {

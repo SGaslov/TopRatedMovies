@@ -1,7 +1,11 @@
 package com.android.gaslov.topratedmovies.domain
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "movies")
 data class Movie(
-    val movieId: Int,
+    @PrimaryKey val movieId: Int,
     val budget: String,
     val genres: String,
     val overview: String,
@@ -11,3 +15,5 @@ data class Movie(
     val title: String,
     val rating: String
 )
+
+//TODO: do I need special Movie entity for database?

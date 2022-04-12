@@ -1,9 +1,9 @@
-package com.android.gaslov.topratedmovies.data.api
+package com.android.gaslov.topratedmovies.data.network.api
 
 import com.android.gaslov.topratedmovies.BuildConfig
-import com.android.gaslov.topratedmovies.data.model.GenreListDto
-import com.android.gaslov.topratedmovies.data.model.MovieDetailDto
-import com.android.gaslov.topratedmovies.data.model.MovieListContainerDto
+import com.android.gaslov.topratedmovies.data.network.model.GenreListDto
+import com.android.gaslov.topratedmovies.data.network.model.MovieDetailDto
+import com.android.gaslov.topratedmovies.data.network.model.MovieListContainerDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
