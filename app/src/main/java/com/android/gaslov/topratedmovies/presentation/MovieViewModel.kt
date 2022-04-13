@@ -1,30 +1,44 @@
 package com.android.gaslov.topratedmovies.presentation
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.app.Application
+import androidx.lifecycle.*
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.android.gaslov.topratedmovies.data.MoviePagingSource
+import com.android.gaslov.topratedmovies.data.MovieRemoteMediator
+import com.android.gaslov.topratedmovies.data.database.MovieDatabase
 import com.android.gaslov.topratedmovies.domain.GetMovieDetailUseCase
+import com.android.gaslov.topratedmovies.domain.GetMovieListUseCase
+import com.android.gaslov.topratedmovies.domain.GetTotalPagesUseCase
 import com.android.gaslov.topratedmovies.domain.Movie
 import kotlinx.coroutines.launch
 
-class MovieViewModel : ViewModel() {
+class MovieViewModel(application: Application) : AndroidViewModel(application) {
 
     private val getMovieUseCase = GetMovieDetailUseCase()
+    private val getTotalPagesUseCase = GetTotalPagesUseCase()
+    private val getMovieListUseCase = GetMovieListUseCase()
+
+    private val db = MovieDatabase.getInstance(application)
 
     private val _movieDetail = MutableLiveData<Movie>()
     val movieDetail: LiveData<Movie>
         get() = _movieDetail
 
-    val flow = Pager(
-        PagingConfig(pageSize = 20)
+//    val flow = Pager(
+//        PagingConfig(pageSize = 20)
+//    ) {
+//        MoviePagingSource()
+//    }.flow.cachedIn(viewModelScope)
+
+    @OptIn(androidx.paging.ExperimentalPagingApi::class)
+    val pager = Pager(
+        config = PagingConfig(pageSize = 20),
+        remoteMediator = MovieRemoteMediator(db, getTotalPagesUseCase, getMovieListUseCase)
     ) {
-        MoviePagingSource()
-    }.flow.cachedIn(viewModelScope)
+        db.movieDao().getMovieList()
+    }
 
     fun loadMovieDetailInfo(movieId: Int) {
         viewModelScope.launch {

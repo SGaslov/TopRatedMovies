@@ -20,9 +20,9 @@ class MovieRemoteMediator(
     private val getMovieListUseCase: GetMovieListUseCase
 ) : RemoteMediator<Int, Movie>() {
 
-    override suspend fun initialize(): InitializeAction {
-        return InitializeAction.LAUNCH_INITIAL_REFRESH
-    }
+//    override suspend fun initialize(): InitializeAction {
+//        return InitializeAction.LAUNCH_INITIAL_REFRESH
+//    }
 
     override suspend fun load(
         loadType: LoadType,

@@ -50,7 +50,7 @@ class MovieListFragment : Fragment() {
         setRecyclerViewOnItemClickListener()
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.flow.collectLatest { pagingData ->
+            viewModel.pager.flow.collectLatest { pagingData ->
                 adapter.submitData(pagingData)
             }
         }

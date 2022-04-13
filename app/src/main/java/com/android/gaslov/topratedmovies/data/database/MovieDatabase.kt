@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.android.gaslov.topratedmovies.domain.Movie
 
-@Database(entities = [Movie::class], version = 1)
+@Database(entities = [Movie::class], version = 2, exportSchema = false)
 abstract class MovieDatabase : RoomDatabase() {
 
     abstract fun movieDao(): MovieDao
@@ -25,7 +25,7 @@ abstract class MovieDatabase : RoomDatabase() {
                     context,
                     MovieDatabase::class.java,
                     DB_NAME
-                ).build()
+                ).fallbackToDestructiveMigration().build()
                 db = instance
                 return instance
             }

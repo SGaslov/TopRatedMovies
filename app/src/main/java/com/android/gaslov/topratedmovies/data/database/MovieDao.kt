@@ -10,8 +10,8 @@ import com.android.gaslov.topratedmovies.domain.Movie
 @Dao
 interface MovieDao {
 
-    @Query("SELECT * FROM movies WHERE label LIKE :query")
-    suspend fun getMovieList(query: String): PagingSource<Int, Movie>
+    @Query("SELECT * FROM movies")
+    fun getMovieList(): PagingSource<Int, Movie>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMovieList(movieList: List<Movie>)
