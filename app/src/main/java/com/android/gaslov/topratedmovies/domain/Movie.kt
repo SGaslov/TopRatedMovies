@@ -9,6 +9,7 @@ data class Movie(
     val budget: String,
     val genres: String,
     val overview: String,
+    val page: Int,
     val popularity: String,
     val posterPath: String,
     val productionCountries: String,

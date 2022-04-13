@@ -17,6 +17,7 @@ class MovieMapper {
                 budget = "Budget: ${budget.toString()}",
                 genres = genresListToGenresString(genres),
                 overview = overview,
+                page = 0,
                 popularity = popularity.toString(),
                 posterPath = posterPath,
                 productionCountries = countriesListToCountriesString(productionCountries),
@@ -26,13 +27,14 @@ class MovieMapper {
         }
     }
 
-    fun movieDtoToMovie(movieDto: MovieDto, allGenresList: List<GenreDto>): Movie {
+    fun movieDtoToMovie(movieDto: MovieDto, allGenresList: List<GenreDto>, page: Int): Movie {
         return with(movieDto) {
             Movie(
                 movieId = movieId,
                 budget = "",
                 genres = genreIdsToGenresString(genreIds, allGenresList),
                 overview = overview,
+                page = page,
                 popularity = popularity.toString(),
                 posterPath = posterPath,
                 productionCountries = "",

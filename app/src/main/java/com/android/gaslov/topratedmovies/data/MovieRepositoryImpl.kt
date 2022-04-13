@@ -10,7 +10,7 @@ class MovieRepositoryImpl : MovieRepository {
 
     private val mapper = MovieMapper()
 
-    override suspend fun getMovie(movieId: Int): Movie {
+    override suspend fun getMovieDetail(movieId: Int): Movie {
         val movieDetailDto = apiService.getMovieDetail(movieId.toString())
         return mapper.movieDetailDtoToMovie(movieDetailDto)
     }
@@ -21,6 +21,11 @@ class MovieRepositoryImpl : MovieRepository {
 
         val allGenresList =apiService.getAllGenreList().genreList
 
-        return movieListDto.map { mapper.movieDtoToMovie(it, allGenresList) }
+        return movieListDto.map { mapper.movieDtoToMovie(it, allGenresList, page) }
+    }
+
+    override suspend fun getTotalPages(): Int {
+        val movieListContainerDto = apiService.getTopRatedMovies(page = 1)
+        return movieListContainerDto.totalPages
     }
 }

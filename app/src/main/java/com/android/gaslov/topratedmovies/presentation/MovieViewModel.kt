@@ -8,13 +8,13 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.android.gaslov.topratedmovies.data.MoviePagingSource
-import com.android.gaslov.topratedmovies.domain.GetMovieUseCase
+import com.android.gaslov.topratedmovies.domain.GetMovieDetailUseCase
 import com.android.gaslov.topratedmovies.domain.Movie
 import kotlinx.coroutines.launch
 
 class MovieViewModel : ViewModel() {
 
-    private val getMovieUseCase = GetMovieUseCase()
+    private val getMovieUseCase = GetMovieDetailUseCase()
 
     private val _movieDetail = MutableLiveData<Movie>()
     val movieDetail: LiveData<Movie>
