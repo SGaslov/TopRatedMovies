@@ -13,7 +13,7 @@ class MovieMapper {
     fun movieDetailDtoToMovie(movieDetailDto: MovieDetailDto): Movie {
         return with(movieDetailDto) {
             Movie(
-                id = 0,
+                entityId = 0,
                 movieId = movieId,
                 budget = "Budget: ${budget.toString()}",
                 genres = genresListToGenresString(genres),
@@ -31,7 +31,7 @@ class MovieMapper {
     fun movieDtoToMovie(movieDto: MovieDto, allGenresList: List<GenreDto>, page: Int): Movie {
         return with(movieDto) {
             Movie(
-                id = 0,
+                entityId = 0,
                 movieId = movieId,
                 budget = "",
                 genres = genreIdsToGenresString(genreIds, allGenresList),
