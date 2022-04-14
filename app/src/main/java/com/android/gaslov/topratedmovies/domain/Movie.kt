@@ -18,4 +18,4 @@ data class Movie(
     val rating: String
 )
 
-//TODO: do I need special Movie entity for database?
+    //TODO: do I need special Movie entity for database?

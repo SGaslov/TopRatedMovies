@@ -49,8 +49,8 @@ class MovieListFragment : Fragment() {
 
         setRecyclerViewOnItemClickListener()
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.pager.flow.collectLatest { pagingData ->
+         viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.pager.collectLatest { pagingData ->
                 adapter.submitData(pagingData)
             }
         }
@@ -83,4 +83,6 @@ class MovieListFragment : Fragment() {
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
+
+    //TODO: add refresh button
 }

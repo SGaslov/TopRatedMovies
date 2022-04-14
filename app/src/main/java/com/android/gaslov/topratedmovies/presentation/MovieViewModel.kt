@@ -5,7 +5,6 @@ import androidx.lifecycle.*
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
-import com.android.gaslov.topratedmovies.data.MoviePagingSource
 import com.android.gaslov.topratedmovies.data.MovieRemoteMediator
 import com.android.gaslov.topratedmovies.data.database.MovieDatabase
 import com.android.gaslov.topratedmovies.domain.GetMovieDetailUseCase
@@ -26,19 +25,13 @@ class MovieViewModel(application: Application) : AndroidViewModel(application) {
     val movieDetail: LiveData<Movie>
         get() = _movieDetail
 
-//    val flow = Pager(
-//        PagingConfig(pageSize = 20)
-//    ) {
-//        MoviePagingSource()
-//    }.flow.cachedIn(viewModelScope)
-
     @OptIn(androidx.paging.ExperimentalPagingApi::class)
     val pager = Pager(
         config = PagingConfig(pageSize = 20),
         remoteMediator = MovieRemoteMediator(db, getTotalPagesUseCase, getMovieListUseCase)
     ) {
         db.movieDao().getMovieList()
-    }
+    }.flow.cachedIn(viewModelScope)
 
     fun loadMovieDetailInfo(movieId: Int) {
         viewModelScope.launch {

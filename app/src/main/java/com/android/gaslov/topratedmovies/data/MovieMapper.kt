@@ -8,7 +8,7 @@ import com.android.gaslov.topratedmovies.domain.Movie
 
 class MovieMapper {
 
-    // TODO: implement string resources
+    //TODO: implement string resources
 
     fun movieDetailDtoToMovie(movieDetailDto: MovieDetailDto): Movie {
         return with(movieDetailDto) {
