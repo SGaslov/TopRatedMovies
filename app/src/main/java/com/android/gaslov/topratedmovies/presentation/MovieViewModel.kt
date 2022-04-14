@@ -34,7 +34,7 @@ class MovieViewModel(application: Application) : AndroidViewModel(application) {
 
     @OptIn(androidx.paging.ExperimentalPagingApi::class)
     val pager = Pager(
-        config = PagingConfig(pageSize = 20),
+        config = PagingConfig(pageSize = 15),
         remoteMediator = MovieRemoteMediator(db, getTotalPagesUseCase, getMovieListUseCase)
     ) {
         db.movieDao().getMovieList()

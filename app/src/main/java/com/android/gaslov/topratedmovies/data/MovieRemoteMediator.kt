@@ -1,5 +1,6 @@
 package com.android.gaslov.topratedmovies.data
 
+import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -31,6 +32,9 @@ class MovieRemoteMediator(
         return try {
             val totalPages = getTotalPagesUseCase()
 
+            Log.d("MyDebug", "Total pages: $totalPages")
+            Log.d("MyDebug", loadType.name)
+
             val currentPage = state.lastItemOrNull()?.page ?: 0
 
             val nextPage = when (loadType) {
@@ -44,7 +48,15 @@ class MovieRemoteMediator(
                 }
             }
 
+            Log.d("MyDebug", "Next page: $nextPage")
+
             val response = getMovieListUseCase(nextPage)
+            var titles = ""
+            for (movie: Movie in response) {
+                titles = titles + movie.title + " | "
+            }
+
+            Log.d("MyDebug", titles)
 
             db.withTransaction {
                 if (loadType == LoadType.REFRESH) {
