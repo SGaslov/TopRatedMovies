@@ -7,9 +7,10 @@ import androidx.paging.RemoteMediator
 import com.android.gaslov.topratedmovies.domain.*
 import retrofit2.HttpException
 import java.io.IOException
+import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
-class MovieRemoteMediator(
+class MovieRemoteMediator @Inject constructor(
     private val getTotalPagesUseCase: GetTotalPagesUseCase,
     private val getMovieListFromWebUseCase: GetMovieListFromWebUseCase,
     private val insertMovieListToDbUseCase: InsertMovieListToDbUseCase,
