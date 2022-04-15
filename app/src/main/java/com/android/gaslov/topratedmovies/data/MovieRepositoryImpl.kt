@@ -1,19 +1,19 @@
 package com.android.gaslov.topratedmovies.data
 
-import android.app.Application
 import androidx.paging.PagingSource
 import androidx.room.withTransaction
 import com.android.gaslov.topratedmovies.data.database.MovieDatabase
-import com.android.gaslov.topratedmovies.data.network.api.MovieApiFactory
+import com.android.gaslov.topratedmovies.data.network.api.MovieApiService
 import com.android.gaslov.topratedmovies.domain.Movie
 import com.android.gaslov.topratedmovies.domain.MovieRepository
 import javax.inject.Inject
 
-class MovieRepositoryImpl @Inject constructor(application: Application) : MovieRepository {
+class MovieRepositoryImpl @Inject constructor(
+    private val apiService: MovieApiService,
+    private val mapper: MovieMapper,
+    private val db: MovieDatabase
+) : MovieRepository {
 
-    private val apiService = MovieApiFactory.service
-    private val mapper = MovieMapper()
-    private val db = MovieDatabase.getInstance(application)
     private val movieDao = db.movieDao()
 
     override suspend fun getMovieDetailFromWeb(movieId: Int): Movie {
@@ -25,7 +25,7 @@ class MovieRepositoryImpl @Inject constructor(application: Application) : MovieR
         val movieListContainerDto = apiService.getTopRatedMovies(page = page)
         val movieListDto = movieListContainerDto.movieList
 
-        val allGenresList =apiService.getAllGenreList().genreList
+        val allGenresList = apiService.getAllGenreList().genreList
 
         return movieListDto.map { mapper.movieDtoToMovie(it, allGenresList, page) }
     }
