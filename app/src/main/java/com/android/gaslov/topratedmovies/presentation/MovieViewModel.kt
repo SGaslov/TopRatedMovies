@@ -1,21 +1,21 @@
 package com.android.gaslov.topratedmovies.presentation
 
-import android.app.Application
 import androidx.lifecycle.*
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.android.gaslov.topratedmovies.domain.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MovieViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val getMovieUseCase = GetMovieDetailFromWebUseCase(application)
-    private val getTotalPagesUseCase = GetTotalPagesUseCase(application)
-    private val getMovieListUseCase = GetMovieListFromWebUseCase(application)
-    private val getMovieListFromDbUseCase = GetMovieListFromDbUseCase(application)
-    private val insertMovieListToDbUseCase = InsertMovieListToDbUseCase(application)
-    private val refreshMovieListInDbUseCase = RefreshMovieListInDbUseCase(application)
+class MovieViewModel @Inject constructor(
+    private val getMovieUseCase: GetMovieDetailFromWebUseCase,
+    private val getTotalPagesUseCase: GetTotalPagesUseCase,
+    private val getMovieListUseCase: GetMovieListFromWebUseCase,
+    private val getMovieListFromDbUseCase: GetMovieListFromDbUseCase,
+    private val insertMovieListToDbUseCase: InsertMovieListToDbUseCase,
+    private val refreshMovieListInDbUseCase: RefreshMovieListInDbUseCase
+) : ViewModel() {
 
     private val _movieDetail = MutableLiveData<Movie>()
     val movieDetail: LiveData<Movie>

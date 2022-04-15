@@ -1,11 +1,8 @@
 package com.android.gaslov.topratedmovies.domain
 
-import android.app.Application
-import com.android.gaslov.topratedmovies.data.MovieRepositoryImpl
+import javax.inject.Inject
 
-class GetMovieListFromWebUseCase(application: Application) {
-
-    private val repository: MovieRepository = MovieRepositoryImpl(application)
+class GetMovieListFromWebUseCase @Inject constructor(private val repository: MovieRepository) {
 
     suspend operator fun invoke(page: Int) = repository.getMovieListFromWeb(page)
 }

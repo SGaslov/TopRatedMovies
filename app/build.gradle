@@ -79,4 +79,9 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
 
     implementation "androidx.room:room-paging:2.5.0-alpha01"
+
+    //Dagger
+    def dagger_version = "2.41"
+    implementation "com.google.dagger:dagger:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
 }

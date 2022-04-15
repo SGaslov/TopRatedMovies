@@ -1,5 +1,6 @@
 package com.android.gaslov.topratedmovies.presentation
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,25 +8,36 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.commit
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.gaslov.topratedmovies.R
 import com.android.gaslov.topratedmovies.databinding.FragmentMovieListBinding
+import com.android.gaslov.topratedmovies.di.ApplicationGraph
 import com.android.gaslov.topratedmovies.presentation.adapters.MovieAdapter
 import com.android.gaslov.topratedmovies.presentation.adapters.MovieViewHolder
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class MovieListFragment : Fragment() {
 
     private lateinit var adapter: MovieAdapter
 
-    private lateinit var viewModel: MovieViewModel
+    @Inject
+    lateinit var viewModel: MovieViewModel
+
+    private val appGraph: ApplicationGraph by lazy {
+        (requireActivity().application as MyApplication).appGraph
+    }
 
     private var _binding: FragmentMovieListBinding? = null
     private val binding: FragmentMovieListBinding
         get() = _binding!!
+
+    override fun onAttach(context: Context) {
+        appGraph.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,8 +55,6 @@ class MovieListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel = ViewModelProvider(this)[MovieViewModel::class.java]
 
         setUpRecyclerView()
 

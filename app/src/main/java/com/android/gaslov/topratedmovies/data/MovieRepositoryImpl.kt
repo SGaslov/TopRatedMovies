@@ -7,8 +7,9 @@ import com.android.gaslov.topratedmovies.data.database.MovieDatabase
 import com.android.gaslov.topratedmovies.data.network.api.MovieApiFactory
 import com.android.gaslov.topratedmovies.domain.Movie
 import com.android.gaslov.topratedmovies.domain.MovieRepository
+import javax.inject.Inject
 
-class MovieRepositoryImpl(application: Application) : MovieRepository {
+class MovieRepositoryImpl @Inject constructor(application: Application) : MovieRepository {
 
     private val apiService = MovieApiFactory.service
     private val mapper = MovieMapper()
