@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.gaslov.topratedmovies.R
 import com.android.gaslov.topratedmovies.databinding.FragmentMovieListBinding
 import com.android.gaslov.topratedmovies.presentation.adapters.MovieAdapter
+import com.android.gaslov.topratedmovies.presentation.adapters.MovieViewHolder
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -64,7 +65,7 @@ class MovieListFragment : Fragment() {
     }
 
     private fun setRecyclerViewOnItemClickListener() {
-        MovieAdapter.onClickListener = { movieId ->
+        MovieViewHolder.onClickListener = { movieId ->
             val movieDetailFragment = MovieDetailFragment.newInstance(movieId)
 
             requireActivity().supportFragmentManager.commit {
