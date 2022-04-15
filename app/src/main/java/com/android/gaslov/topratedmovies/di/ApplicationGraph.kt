@@ -5,7 +5,9 @@ import com.android.gaslov.topratedmovies.presentation.MovieDetailFragment
 import com.android.gaslov.topratedmovies.presentation.MovieListFragment
 import dagger.BindsInstance
 import dagger.Component
+import javax.inject.Singleton
 
+@Singleton
 @Component(modules = [DataModule::class])
 interface ApplicationGraph {
 

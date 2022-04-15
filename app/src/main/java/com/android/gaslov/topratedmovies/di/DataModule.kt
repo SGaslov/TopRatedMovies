@@ -9,15 +9,18 @@ import com.android.gaslov.topratedmovies.domain.MovieRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 @Module
 abstract class DataModule {
 
+    @Singleton
     @Binds
     abstract fun bindMovieRepository(impl: MovieRepositoryImpl): MovieRepository
 
     companion object {
 
+        @Singleton
         @Provides
         fun provideApiService(): MovieApiService {
             return MovieApiFactory.service
@@ -28,5 +31,4 @@ abstract class DataModule {
             return MovieDatabase.getInstance(application)
         }
     }
-
 }

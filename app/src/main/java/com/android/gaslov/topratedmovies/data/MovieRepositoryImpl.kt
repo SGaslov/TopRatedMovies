@@ -48,6 +48,5 @@ class MovieRepositoryImpl @Inject constructor(
             movieDao.clearAll()
             movieDao.insertMovieList(movieList)
         }
-
     }
 }
