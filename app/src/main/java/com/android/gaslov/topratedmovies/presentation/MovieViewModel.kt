@@ -5,21 +5,17 @@ import androidx.lifecycle.*
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
-import com.android.gaslov.topratedmovies.data.MovieRemoteMediator
-import com.android.gaslov.topratedmovies.data.database.MovieDatabase
-import com.android.gaslov.topratedmovies.domain.GetMovieDetailUseCase
-import com.android.gaslov.topratedmovies.domain.GetMovieListUseCase
-import com.android.gaslov.topratedmovies.domain.GetTotalPagesUseCase
-import com.android.gaslov.topratedmovies.domain.Movie
+import com.android.gaslov.topratedmovies.domain.*
 import kotlinx.coroutines.launch
 
 class MovieViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val getMovieUseCase = GetMovieDetailUseCase()
-    private val getTotalPagesUseCase = GetTotalPagesUseCase()
-    private val getMovieListUseCase = GetMovieListUseCase()
-
-    private val db = MovieDatabase.getInstance(application)
+    private val getMovieUseCase = GetMovieDetailFromWebUseCase(application)
+    private val getTotalPagesUseCase = GetTotalPagesUseCase(application)
+    private val getMovieListUseCase = GetMovieListFromWebUseCase(application)
+    private val getMovieListFromDbUseCase = GetMovieListFromDbUseCase(application)
+    private val insertMovieListToDbUseCase = InsertMovieListToDbUseCase(application)
+    private val refreshMovieListInDbUseCase = RefreshMovieListInDbUseCase(application)
 
     private val _movieDetail = MutableLiveData<Movie>()
     val movieDetail: LiveData<Movie>
@@ -28,9 +24,14 @@ class MovieViewModel(application: Application) : AndroidViewModel(application) {
     @OptIn(androidx.paging.ExperimentalPagingApi::class)
     val pager = Pager(
         config = PagingConfig(pageSize = 20),
-        remoteMediator = MovieRemoteMediator(db, getTotalPagesUseCase, getMovieListUseCase)
+        remoteMediator = MovieRemoteMediator(
+            getTotalPagesUseCase,
+            getMovieListUseCase,
+            insertMovieListToDbUseCase,
+            refreshMovieListInDbUseCase
+        )
     ) {
-        db.movieDao().getMovieList()
+        getMovieListFromDbUseCase()
     }.flow.cachedIn(viewModelScope)
 
     fun loadMovieDetailInfo(movieId: Int) {

@@ -1,22 +1,19 @@
-package com.android.gaslov.topratedmovies.data
+package com.android.gaslov.topratedmovies.presentation
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import androidx.room.withTransaction
-import com.android.gaslov.topratedmovies.data.database.MovieDatabase
-import com.android.gaslov.topratedmovies.domain.GetMovieListUseCase
-import com.android.gaslov.topratedmovies.domain.GetTotalPagesUseCase
-import com.android.gaslov.topratedmovies.domain.Movie
+import com.android.gaslov.topratedmovies.domain.*
 import retrofit2.HttpException
 import java.io.IOException
 
 @OptIn(ExperimentalPagingApi::class)
 class MovieRemoteMediator(
-    private val db: MovieDatabase,
     private val getTotalPagesUseCase: GetTotalPagesUseCase,
-    private val getMovieListUseCase: GetMovieListUseCase
+    private val getMovieListFromWebUseCase: GetMovieListFromWebUseCase,
+    private val insertMovieListToDbUseCase: InsertMovieListToDbUseCase,
+    private val refreshMovieListInDbUseCase: RefreshMovieListInDbUseCase
 ) : RemoteMediator<Int, Movie>() {
 
     override suspend fun load(
@@ -39,17 +36,16 @@ class MovieRemoteMediator(
                 }
             }
 
-            val response = getMovieListUseCase(nextPage)
+            val response = getMovieListFromWebUseCase(nextPage)
             var titles = ""
             for (movie: Movie in response) {
                 titles = titles + movie.title + " | "
             }
 
-            db.withTransaction {
-                if (loadType == LoadType.REFRESH) {
-                    db.movieDao().clearAll()
-                }
-                db.movieDao().insertMovieList(response)
+            if (loadType == LoadType.REFRESH) {
+                refreshMovieListInDbUseCase(response)
+            } else {
+                insertMovieListToDbUseCase(response)
             }
 
             MediatorResult.Success(
