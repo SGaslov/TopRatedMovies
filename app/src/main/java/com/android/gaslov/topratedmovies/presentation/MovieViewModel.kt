@@ -5,6 +5,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.android.gaslov.topratedmovies.domain.*
+import com.android.gaslov.topratedmovies.domain.usecases.GetMovieDetailFromWebUseCase
+import com.android.gaslov.topratedmovies.domain.usecases.GetMovieListFromDbUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

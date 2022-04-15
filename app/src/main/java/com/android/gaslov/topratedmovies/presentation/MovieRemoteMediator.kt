@@ -5,6 +5,10 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import com.android.gaslov.topratedmovies.domain.*
+import com.android.gaslov.topratedmovies.domain.usecases.GetMovieListFromWebUseCase
+import com.android.gaslov.topratedmovies.domain.usecases.GetTotalPagesUseCase
+import com.android.gaslov.topratedmovies.domain.usecases.InsertMovieListToDbUseCase
+import com.android.gaslov.topratedmovies.domain.usecases.RefreshMovieListInDbUseCase
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
