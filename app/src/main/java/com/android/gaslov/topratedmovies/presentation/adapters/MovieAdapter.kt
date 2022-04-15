@@ -11,6 +11,8 @@ import com.android.gaslov.topratedmovies.domain.Movie
 
 class MovieAdapter : PagingDataAdapter<Movie, MovieAdapter.ViewHolder>(MovieDiffCallback()) {
 
+    // TODO: Make ViewHolder class external
+
     class ViewHolder(val binding: MovieItemBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.setOnClickListener {

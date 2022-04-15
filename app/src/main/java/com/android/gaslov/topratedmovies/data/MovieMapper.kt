@@ -1,22 +1,24 @@
 package com.android.gaslov.topratedmovies.data
 
-import com.android.gaslov.topratedmovies.data.model.GenreDto
-import com.android.gaslov.topratedmovies.data.model.MovieDetailDto
-import com.android.gaslov.topratedmovies.data.model.MovieDto
-import com.android.gaslov.topratedmovies.data.model.ProductionCountryDto
+import com.android.gaslov.topratedmovies.data.network.model.GenreDto
+import com.android.gaslov.topratedmovies.data.network.model.MovieDetailDto
+import com.android.gaslov.topratedmovies.data.network.model.MovieDto
+import com.android.gaslov.topratedmovies.data.network.model.ProductionCountryDto
 import com.android.gaslov.topratedmovies.domain.Movie
 
 class MovieMapper {
 
-    // TODO: implement string resources
+    //TODO: implement string resources
 
     fun movieDetailDtoToMovie(movieDetailDto: MovieDetailDto): Movie {
         return with(movieDetailDto) {
             Movie(
+                entityId = 0,
                 movieId = movieId,
                 budget = "Budget: ${budget.toString()}",
                 genres = genresListToGenresString(genres),
                 overview = overview,
+                page = 0,
                 popularity = popularity.toString(),
                 posterPath = posterPath,
                 productionCountries = countriesListToCountriesString(productionCountries),
@@ -26,13 +28,15 @@ class MovieMapper {
         }
     }
 
-    fun movieDtoToMovie(movieDto: MovieDto, allGenresList: List<GenreDto>): Movie {
+    fun movieDtoToMovie(movieDto: MovieDto, allGenresList: List<GenreDto>, page: Int): Movie {
         return with(movieDto) {
             Movie(
+                entityId = 0,
                 movieId = movieId,
                 budget = "",
                 genres = genreIdsToGenresString(genreIds, allGenresList),
                 overview = overview,
+                page = page,
                 popularity = popularity.toString(),
                 posterPath = posterPath,
                 productionCountries = "",

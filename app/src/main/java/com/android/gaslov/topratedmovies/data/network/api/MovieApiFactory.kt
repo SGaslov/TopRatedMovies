@@ -1,4 +1,4 @@
-package com.android.gaslov.topratedmovies.data.api
+package com.android.gaslov.topratedmovies.data.network.api
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
