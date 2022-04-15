@@ -1,11 +1,8 @@
 package com.android.gaslov.topratedmovies.domain
 
-import android.app.Application
-import com.android.gaslov.topratedmovies.data.MovieRepositoryImpl
+import javax.inject.Inject
 
-class GetTotalPagesUseCase(application: Application) {
-
-    private val repository: MovieRepository = MovieRepositoryImpl(application)
+class GetTotalPagesUseCase @Inject constructor(private val repository: MovieRepository) {
 
     suspend operator fun invoke() = repository.getTotalPagesFromWeb()
 }

@@ -1,21 +1,18 @@
 package com.android.gaslov.topratedmovies.presentation
 
-import android.app.Application
 import androidx.lifecycle.*
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.android.gaslov.topratedmovies.domain.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MovieViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val getMovieUseCase = GetMovieDetailFromWebUseCase(application)
-    private val getTotalPagesUseCase = GetTotalPagesUseCase(application)
-    private val getMovieListUseCase = GetMovieListFromWebUseCase(application)
-    private val getMovieListFromDbUseCase = GetMovieListFromDbUseCase(application)
-    private val insertMovieListToDbUseCase = InsertMovieListToDbUseCase(application)
-    private val refreshMovieListInDbUseCase = RefreshMovieListInDbUseCase(application)
+class MovieViewModel @Inject constructor(
+    private val getMovieDetailFromWebUseCase: GetMovieDetailFromWebUseCase,
+    private val getMovieListFromDbUseCase: GetMovieListFromDbUseCase,
+    private val remoteMediator: MovieRemoteMediator
+) : ViewModel() {
 
     private val _movieDetail = MutableLiveData<Movie>()
     val movieDetail: LiveData<Movie>
@@ -24,19 +21,14 @@ class MovieViewModel(application: Application) : AndroidViewModel(application) {
     @OptIn(androidx.paging.ExperimentalPagingApi::class)
     val pager = Pager(
         config = PagingConfig(pageSize = 20),
-        remoteMediator = MovieRemoteMediator(
-            getTotalPagesUseCase,
-            getMovieListUseCase,
-            insertMovieListToDbUseCase,
-            refreshMovieListInDbUseCase
-        )
+        remoteMediator = remoteMediator
     ) {
         getMovieListFromDbUseCase()
     }.flow.cachedIn(viewModelScope)
 
     fun loadMovieDetailInfo(movieId: Int) {
         viewModelScope.launch {
-            val movieDetail = getMovieUseCase(movieId)
+            val movieDetail = getMovieDetailFromWebUseCase(movieId)
             _movieDetail.value = movieDetail
         }
     }

@@ -5,8 +5,9 @@ import com.android.gaslov.topratedmovies.data.network.model.MovieDetailDto
 import com.android.gaslov.topratedmovies.data.network.model.MovieDto
 import com.android.gaslov.topratedmovies.data.network.model.ProductionCountryDto
 import com.android.gaslov.topratedmovies.domain.Movie
+import javax.inject.Inject
 
-class MovieMapper {
+class MovieMapper @Inject constructor() {
 
     //TODO: implement string resources
 
