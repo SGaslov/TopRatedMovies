@@ -6,4 +6,5 @@ MVVM pattern with LiveData was used as well as Data Binding library, Retrofit HT
 \
 To launch application create file apikey.properties in project root directory with text inside:\
 API_KEY="XXX"\
-where XXX is your api key from https://www.themoviedb.org/
+where XXX is your api key from https://www.themoviedb.org/ \
+Also VPN required to launch app from Russian Federation territory.

@@ -1,5 +1,7 @@
 package com.android.gaslov.topratedmovies.data
 
+import android.app.Application
+import com.android.gaslov.topratedmovies.R
 import com.android.gaslov.topratedmovies.data.network.model.GenreDto
 import com.android.gaslov.topratedmovies.data.network.model.MovieDetailDto
 import com.android.gaslov.topratedmovies.data.network.model.MovieDto
@@ -7,16 +9,14 @@ import com.android.gaslov.topratedmovies.data.network.model.ProductionCountryDto
 import com.android.gaslov.topratedmovies.domain.Movie
 import javax.inject.Inject
 
-class MovieMapper @Inject constructor() {
-
-    //TODO: implement string resources
+class MovieMapper @Inject constructor(private val application: Application) {
 
     fun movieDetailDtoToMovie(movieDetailDto: MovieDetailDto): Movie {
         return with(movieDetailDto) {
             Movie(
                 entityId = 0,
                 movieId = movieId,
-                budget = "Budget: ${budget.toString()}",
+                budget = application.applicationContext.getString(R.string.budget) + budget,
                 genres = genresListToGenresString(genres),
                 overview = overview,
                 page = 0,
@@ -24,7 +24,7 @@ class MovieMapper @Inject constructor() {
                 posterPath = posterPath,
                 productionCountries = countriesListToCountriesString(productionCountries),
                 title = title,
-                rating = "TMDB rating: ${rating.toString()}"
+                rating = application.applicationContext.getString(R.string.tmdb_rating) + rating
             )
         }
     }
@@ -42,13 +42,13 @@ class MovieMapper @Inject constructor() {
                 posterPath = posterPath,
                 productionCountries = "",
                 title = title,
-                rating = "Rating: ${rating.toString()}"
+                rating = application.applicationContext.getString(R.string.rating) + rating
             )
         }
     }
 
     private fun genresListToGenresString(genresList: List<GenreDto>): String {
-        var genresString = "Genres: "
+        var genresString = application.applicationContext.getString(R.string.genres)
 
         val listOfStrings = genresList.map { it.genreName }
         for (i in listOfStrings.indices) {
@@ -65,7 +65,7 @@ class MovieMapper @Inject constructor() {
         genreIds: List<Int>,
         allGenresList: List<GenreDto>
     ): String {
-        var genresString = "Genres: "
+        var genresString = application.applicationContext.getString(R.string.genres)
 
         for (i in genreIds.indices) {
             for (genreDto in allGenresList) {
@@ -83,7 +83,7 @@ class MovieMapper @Inject constructor() {
     }
 
     private fun countriesListToCountriesString(countriesList: List<ProductionCountryDto>?): String {
-        var countriesString = "Production: "
+        var countriesString = application.applicationContext.getString(R.string.production_countries)
 
         val listOfStrings = countriesList?.map { it.countryName ?: "" }
         listOfStrings?.let {

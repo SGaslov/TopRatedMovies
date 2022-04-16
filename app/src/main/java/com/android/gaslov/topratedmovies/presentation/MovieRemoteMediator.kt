@@ -56,6 +56,7 @@ class MovieRemoteMediator @Inject constructor(
             MediatorResult.Success(
                 endOfPaginationReached = nextPage == totalPages
             )
+            // TODO: add error processing
         } catch (e: IOException) {
             MediatorResult.Error(e)
         } catch (e: HttpException) {

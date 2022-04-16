@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Top Rated Movies</string>
     <string name="detail_information">Detail Information</string>
+    <string name="genres">Genres: </string>
+    <string name="production_countries">Production: </string>
+    <string name="budget">Budget: </string>
+    <string name="tmdb_rating">TMDB rating: </string>
+    <string name="rating">Rating: </string>
 </resources>
