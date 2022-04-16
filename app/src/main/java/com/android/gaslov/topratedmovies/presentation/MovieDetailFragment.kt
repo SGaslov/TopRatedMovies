@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.ViewModelProvider
 import com.android.gaslov.topratedmovies.R
 import com.android.gaslov.topratedmovies.databinding.FragmentMovieDetailBinding
 import com.android.gaslov.topratedmovies.di.ApplicationGraph
@@ -15,7 +16,11 @@ import javax.inject.Inject
 class MovieDetailFragment : Fragment() {
 
     @Inject
-    lateinit var viewModel: MovieViewModel
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val viewModel: MovieViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[MovieViewModel::class.java]
+    }
 
     private val appGraph: ApplicationGraph by lazy {
         (requireActivity().application as MyApplication).appGraph

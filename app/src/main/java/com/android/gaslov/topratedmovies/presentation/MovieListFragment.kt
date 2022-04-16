@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.commit
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.gaslov.topratedmovies.R
@@ -24,7 +25,11 @@ class MovieListFragment : Fragment() {
     private lateinit var adapter: MovieAdapter
 
     @Inject
-    lateinit var viewModel: MovieViewModel
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val viewModel: MovieViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[MovieViewModel::class.java]
+    }
 
     private val appGraph: ApplicationGraph by lazy {
         (requireActivity().application as MyApplication).appGraph
