@@ -1,5 +1,7 @@
 package com.android.gaslov.topratedmovies.presentation
 
+import android.app.Application
+import android.widget.Toast
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -18,7 +20,8 @@ class MovieRemoteMediator @Inject constructor(
     private val getTotalPagesUseCase: GetTotalPagesUseCase,
     private val getMovieListFromWebUseCase: GetMovieListFromWebUseCase,
     private val insertMovieListToDbUseCase: InsertMovieListToDbUseCase,
-    private val refreshMovieListInDbUseCase: RefreshMovieListInDbUseCase
+    private val refreshMovieListInDbUseCase: RefreshMovieListInDbUseCase,
+    private val application: Application
 ) : RemoteMediator<Int, Movie>() {
 
     override suspend fun load(
@@ -57,10 +60,15 @@ class MovieRemoteMediator @Inject constructor(
                 endOfPaginationReached = nextPage == totalPages
             )
             // TODO: add error processing
-        } catch (e: IOException) {
-            MediatorResult.Error(e)
-        } catch (e: HttpException) {
-            MediatorResult.Error(e)
+        } catch (error: IOException) {
+            MediatorResult.Error(error)
+        } catch (error: HttpException) {
+            Toast.makeText(
+                application,
+                "Server connection problem ${error.code()}",
+                Toast.LENGTH_LONG
+            ).show()
+            MediatorResult.Error(error)
         }
     }
 }

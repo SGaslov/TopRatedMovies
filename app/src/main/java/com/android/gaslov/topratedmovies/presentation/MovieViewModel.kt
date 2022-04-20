@@ -1,5 +1,7 @@
 package com.android.gaslov.topratedmovies.presentation
 
+import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.*
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -8,12 +10,13 @@ import com.android.gaslov.topratedmovies.domain.*
 import com.android.gaslov.topratedmovies.domain.usecases.GetMovieDetailFromWebUseCase
 import com.android.gaslov.topratedmovies.domain.usecases.GetMovieListFromDbUseCase
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import retrofit2.HttpException
 
-class MovieViewModel @Inject constructor(
+class MovieViewModel(
     private val getMovieDetailFromWebUseCase: GetMovieDetailFromWebUseCase,
     private val getMovieListFromDbUseCase: GetMovieListFromDbUseCase,
-    private val remoteMediator: MovieRemoteMediator
+    private val remoteMediator: MovieRemoteMediator,
+    private val application: Application
 ) : ViewModel() {
 
     private val _movieDetail = MutableLiveData<Movie>()
@@ -30,8 +33,18 @@ class MovieViewModel @Inject constructor(
 
     fun loadMovieDetailInfo(movieId: Int) {
         viewModelScope.launch {
-            val movieDetail = getMovieDetailFromWebUseCase(movieId)
-            _movieDetail.value = movieDetail
+            try {
+                val movieDetail = getMovieDetailFromWebUseCase(movieId)
+                _movieDetail.value = movieDetail
+            } catch (error: Exception) {
+                if (error is HttpException) {
+                    Toast.makeText(
+                        application,
+                        "Server connection problem ${error.code()}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
         }
     }
 }
